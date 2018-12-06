@@ -2,7 +2,17 @@
 
 Flutter package for multi-select UI widget
 
+
 ## Getting Started
+
+add package in your pubspec.yaml
+flutter_multiselect: 0.0.1
+
+and import in your project to start using the multiselect.
+
+By default, there is no UI contro for multi-select in iOS and Android
+
+This widget can be used for bridge that gap.
 
 Sample Usage -  
 

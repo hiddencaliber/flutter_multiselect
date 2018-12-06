@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class SelectionModal extends StatefulWidget {
   @override
@@ -31,8 +30,6 @@ class _SelectionModalState extends State<SelectionModal> {
   bool _isSearching;
 
   List _localDataSourceWithState = [];
-  String _searchText = '';
-
   List _searchresult = [];
 
   _SelectionModalState() {
@@ -40,12 +37,10 @@ class _SelectionModalState extends State<SelectionModal> {
       if (_controller.text.isEmpty) {
         setState(() {
           _isSearching = false;
-          _searchText = "";
         });
       } else {
         setState(() {
           _isSearching = true;
-          _searchText = _controller.text;
         });
       }
     });
