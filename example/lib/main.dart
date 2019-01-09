@@ -45,6 +45,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -53,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -60,8 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
+            // Center is a layout widget. It takes a single child and positions it
+            // in the middle of the parent.
+            child: new Form(
+          key: _formKey,
+          autovalidate: true,
           child: Column(
             // Column is also layout widget. It takes a list of children and
             // arranges them vertically. By default, it sizes itself to fit its
@@ -84,10 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   titleText: 'Country of Residence',
                   validator: (value) {
                     if (value == null) {
-                      return 'Please select one or more option(s)';
+                      return 'Please select one or more option(s)2';
                     }
                   },
-                  errorText: 'Please select one or more option(s)',
+                  errorText: 'Please select one or more option(s)1',
                   dataSource: [
                     {
                       "display": "Australia",
@@ -113,11 +118,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   value: null,
                   onSaved: (value) {
                     print('The value is $value');
-                  })
+                  }),
+              SizedBox(
+                width: 10.0,
+              ),
+              RaisedButton(
+                child: Text('Save'),
+                color: Colors.white,
+                onPressed: () {
+                  _onFormSaved();
+                },
+              )
             ],
           ),
-        )
+        ))
         // This trailing comma makes auto-formatting nicer for build methods.
         );
+  }
+
+  void _onFormSaved() {
+    final FormState form = _formKey.currentState;
+    form.save();
   }
 }
