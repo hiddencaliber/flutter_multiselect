@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class SelectionModal extends StatefulWidget {
   @override
-  _SelectionModalState createState() =>
-      _SelectionModalState();
+  _SelectionModalState createState() => _SelectionModalState();
 
   final List dataSource;
   final List values;
