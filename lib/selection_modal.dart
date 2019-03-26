@@ -236,7 +236,6 @@ class _SelectionModalState extends State<SelectionModal> {
                       child: IconButton(
                         icon: Icon(Icons.clear),
                         onPressed: () {
-                          print('Clear');
                           _controller.clear();
                           searchOperation('');
                         },
@@ -259,7 +258,6 @@ class _SelectionModalState extends State<SelectionModal> {
   }
 
   void searchOperation(String searchText) {
-    print('searchOperation: $searchText');
     _searchresult.clear();
     if (_isSearching != null) {
       for (int i = 0; i < _localDataSourceWithState.length; i++) {
