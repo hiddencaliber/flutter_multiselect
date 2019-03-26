@@ -22,7 +22,7 @@ class MultiSelect extends FormField<dynamic> {
   MultiSelect(
       {FormFieldSetter<dynamic> onSaved,
       FormFieldValidator<dynamic> validator,
-      int initialValue,
+      dynamic initialValue,
       bool autovalidate = false,
       this.titleText = 'Title',
       this.hintText = 'Tap to select one or more...',
@@ -30,7 +30,7 @@ class MultiSelect extends FormField<dynamic> {
       this.errorText = 'Please select one or more option(s)',
       this.value,
       this.leading,
-      this.filterable,
+      this.filterable = true,
       this.dataSource,
       this.textField,
       this.valueField,
@@ -52,10 +52,12 @@ class MultiSelect extends FormField<dynamic> {
                     var existingItem = dataSource.singleWhere(
                         (itm) => itm[valueField] == item,
                         orElse: () => null);
-                    selectedOptions.add(Chip(
-                      label: Text(existingItem[textField],
-                          overflow: TextOverflow.ellipsis),
-                    ));
+                    if (existingItem != null) {
+                      selectedOptions.add(Chip(
+                        label: Text(existingItem[textField],
+                            overflow: TextOverflow.ellipsis),
+                      ));
+                    }
                   });
                 }
 
@@ -82,7 +84,6 @@ class MultiSelect extends FormField<dynamic> {
                       } else {
                         state.didChange(null);
                       }
-                      print('selected value $results');
                     }
                   },
                   child: InputDecorator(
