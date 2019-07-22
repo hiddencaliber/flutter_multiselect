@@ -9,10 +9,12 @@ class SelectionModal extends StatefulWidget {
   final bool filterable;
   final String textField;
   final String valueField;
+  final String title;
 
   SelectionModal(
       {this.filterable,
       this.dataSource,
+      this.title = 'Please select one or more option(s)',
       this.values,
       this.textField,
       this.valueField})
@@ -66,13 +68,14 @@ class _SelectionModalState extends State<SelectionModal> {
       leading: Container(),
       elevation: 0.0,
       title: Text(
-        'Please select one or more',
+        widget.title,
+        style: TextStyle(fontSize: 16.0)
       ),
       actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.close,
-            size: 25.0,
+            size: 26.0,
           ),
           onPressed: () {
             Navigator.pop(context, null);
@@ -119,7 +122,7 @@ class _SelectionModalState extends State<SelectionModal> {
                         Icons.save,
                         size: 20.0,
                       ),
-                      color: Colors.blueAccent,
+                      color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () {
                         var selectedValuesObjectList = _localDataSourceWithState
@@ -153,7 +156,10 @@ class _SelectionModalState extends State<SelectionModal> {
       var existingItem = _localDataSourceWithState
           .singleWhere((itm) => itm['value'] == item, orElse: () => null);
       selectedOptions.add(Chip(
-        label: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
+        label: new Container(
+                constraints: new BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80.0),
+                child: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
+              ),
         deleteButtonTooltipMessage: 'Tap to delete this item',
         deleteIcon: Icon(Icons.cancel),
         deleteIconColor: Colors.grey,
@@ -172,16 +178,30 @@ class _SelectionModalState extends State<SelectionModal> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 new Text(
-                  'Currently selected items (tap to remove)',
+                  'Currently selected ${selectedOptions.length} items (tap to remove)', // use languageService here
                   style: TextStyle(
                       color: Colors.black87, fontWeight: FontWeight.bold),
                 ),
-                Wrap(
-                  spacing: 8.0, // gap between adjacent chips
-                  runSpacing: 0.4, // gap between lines
-                  alignment: WrapAlignment.start,
-                  children: selectedOptions,
+                ConstrainedBox(
+                constraints: new BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height/8,
                 ),
+                child: 
+                Scrollbar(
+                                  child: SingleChildScrollView(child: 
+                  Wrap(            
+                    spacing: 8.0, // gap between adjacent chips
+                    runSpacing: 0.4, // gap between lines
+                    alignment: WrapAlignment.start,
+                    children: selectedOptions,
+                  )
+                  ),
+                )
+                
+                
+                ),
+               
+                
               ],
             ),
           )
@@ -192,13 +212,13 @@ class _SelectionModalState extends State<SelectionModal> {
     List<Widget> options = [];
     _searchresult.forEach((item) {
       options.add(ListTile(
-          title: Text(item['text']),
+          title: Text(item['text'] ?? ''),
           leading: Transform.scale(
             child: Icon(
                 item['checked']
                     ? Icons.check_box
                     : Icons.check_box_outline_blank,
-                color: Colors.blueAccent),
+                color: Theme.of(context).primaryColor),
             scale: 1.5,
           ),
           onTap: () {
@@ -220,6 +240,7 @@ class _SelectionModalState extends State<SelectionModal> {
           Container(
             child: TextField(
               controller: _controller,
+              keyboardAppearance: Brightness.light,
               onChanged: searchOperation,
               decoration: new InputDecoration(
                   contentPadding: EdgeInsets.all(12.0),
@@ -240,6 +261,7 @@ class _SelectionModalState extends State<SelectionModal> {
                           searchOperation('');
                         },
                         padding: EdgeInsets.all(0.0),
+                        tooltip: 'Clear',
                       ))),
             ),
           ),
@@ -259,7 +281,7 @@ class _SelectionModalState extends State<SelectionModal> {
 
   void searchOperation(String searchText) {
     _searchresult.clear();
-    if (_isSearching != null) {
+    if (_isSearching != null && searchText != null && searchText.toString().trim() != '') {
       for (int i = 0; i < _localDataSourceWithState.length; i++) {
         String data =
             '${_localDataSourceWithState[i]['value']} ${_localDataSourceWithState[i]['text']}';
@@ -267,6 +289,9 @@ class _SelectionModalState extends State<SelectionModal> {
           _searchresult.add(_localDataSourceWithState[i]);
         }
       }
+    }
+    else {
+     _searchresult = List.from(_localDataSourceWithState);
     }
   }
 }

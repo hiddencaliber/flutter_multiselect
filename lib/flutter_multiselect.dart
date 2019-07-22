@@ -70,6 +70,7 @@ class MultiSelect extends FormField<dynamic> {
                         state.context,
                         MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) => SelectionModal(
+			      title: titleText,
                               filterable: filterable,
                               valueField: valueField,
                               textField: textField,
@@ -79,10 +80,13 @@ class MultiSelect extends FormField<dynamic> {
                         ));
 
                     if (results != null) {
+                      dynamic newValue;
                       if (results.length > 0) {
-                        state.didChange(results);
-                      } else {
-                        state.didChange(null);
+                        newValue = results;
+                      }
+                      state.didChange(newValue);
+                      if (change != null) {
+                        change(newValue);
                       }
                     }
                   },
@@ -92,13 +96,16 @@ class MultiSelect extends FormField<dynamic> {
                       fillColor: Colors.white,
                       contentPadding:
                           EdgeInsets.only(left: 10.0, top: 0.0, right: 10.0),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderSide: BorderSide(color: Colors.red.shade400)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                           borderSide: BorderSide(color: Colors.grey.shade400)),
                       errorText: state.hasError ? state.errorText : null,
-                      errorMaxLines: 4,
+                      errorMaxLines: 50,
                     ),
-                    isEmpty: state.value == null || state.value == '',
+                    isEmpty: (state.value == null || state.value == '' || (state.value != null &&  state.value.length == 0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -108,19 +115,23 @@ class MultiSelect extends FormField<dynamic> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Expanded(
-                                  child: Text(
-                                titleText,
-                                style: TextStyle(
-                                    fontSize: 14.0, color: Colors.black),
-                              )),
-                              required
-                                  ? Text(
-                                      ' *',
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: titleText,
                                       style: TextStyle(
-                                          color: Colors.red.shade700,
-                                          fontSize: 12.0),
-                                    )
-                                  : Container(),
+                                          fontSize: 16.0, color: Theme.of(state.context).primaryColor),
+                                      children: required
+                                          ? [
+                                              TextSpan(
+                                                text: ' *',
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 16.0),
+                                              )
+                                            ]
+                                          : []),
+                                ),
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +139,7 @@ class MultiSelect extends FormField<dynamic> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.arrow_downward,
-                                    color: Color(0xFF3D72B6),
+                                    color: Theme.of(state.context).primaryColor,
                                     size: 30.0,
                                   )
                                 ],
@@ -136,14 +147,8 @@ class MultiSelect extends FormField<dynamic> {
                             ],
                           ),
                         ),
-                        state.value != null
-                            ? Wrap(
-                                spacing: 8.0, // gap between adjacent chips
-                                runSpacing: 1.0, // gap between lines
-                                children:
-                                    _buildSelectedOptions(state.value, state),
-                              )
-                            : new Container(
+                        (state.value == null || state.value == '' || (state.value != null &&  state.value.length == 0))
+                            ? new Container(
                                 margin:
                                     EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 6.0),
                                 child: Text(
@@ -152,7 +157,14 @@ class MultiSelect extends FormField<dynamic> {
                                     color: Colors.grey.shade500,
                                   ),
                                 ),
+                              ):
+                              Wrap(
+                                spacing: 8.0, // gap between adjacent chips
+                                runSpacing: 1.0, // gap between lines
+                                children:
+                                    _buildSelectedOptions(state.value, state),
                               )
+                            
                       ],
                     ),
                   ));
