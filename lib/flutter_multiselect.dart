@@ -18,6 +18,7 @@ class MultiSelect extends FormField<dynamic> {
   final Function close;
   final Widget leading;
   final Widget trailing;
+  final int maxSelectableItems;
 
   MultiSelect(
       {FormFieldSetter<dynamic> onSaved,
@@ -37,7 +38,8 @@ class MultiSelect extends FormField<dynamic> {
       this.change,
       this.open,
       this.close,
-      this.trailing})
+      this.trailing,
+      this.maxSelectableItems})
       : super(
             onSaved: onSaved,
             validator: validator,
@@ -75,7 +77,9 @@ class MultiSelect extends FormField<dynamic> {
                               valueField: valueField,
                               textField: textField,
                               dataSource: dataSource,
-                              values: state.value ?? []),
+                              values: state.value ?? [],
+                              maxItems: maxSelectableItems == null ? 100 : maxSelectableItems),
+),
                           fullscreenDialog: true,
                         ));
 

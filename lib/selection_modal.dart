@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SelectionModal extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class SelectionModal extends StatefulWidget {
   final String textField;
   final String valueField;
   final String title;
+  final int maxItems;
 
   SelectionModal(
       {this.filterable,
@@ -17,7 +19,8 @@ class SelectionModal extends StatefulWidget {
       this.title = 'Please select one or more option(s)',
       this.values,
       this.textField,
-      this.valueField})
+      this.valueField,
+      this.maxItems})
       : super();
 }
 
@@ -67,10 +70,7 @@ class _SelectionModalState extends State<SelectionModal> {
     return AppBar(
       leading: Container(),
       elevation: 0.0,
-      title: Text(
-        widget.title,
-        style: TextStyle(fontSize: 16.0)
-      ),
+      title: Text(widget.title, style: TextStyle(fontSize: 16.0)),
       actions: <Widget>[
         IconButton(
           icon: Icon(
@@ -128,11 +128,23 @@ class _SelectionModalState extends State<SelectionModal> {
                         var selectedValuesObjectList = _localDataSourceWithState
                             .where((item) => item['checked'])
                             .toList();
-                        var selectedValues = [];
-                        selectedValuesObjectList.forEach((item) {
-                          selectedValues.add(item['value']);
-                        });
-                        Navigator.pop(context, selectedValues);
+
+                        if (widget.maxItems < selectedValuesObjectList.length) {
+                          Fluttertoast.showToast(
+                              msg: "Please select only "+widget.maxItems.toString()+" value(s).",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIos: 4,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 18.0);
+                        } else {
+                          var selectedValues = [];
+                          selectedValuesObjectList.forEach((item) {
+                            selectedValues.add(item['value']);
+                          });
+                          Navigator.pop(context, selectedValues);
+                        }
                       },
                     ),
                   )
@@ -157,9 +169,10 @@ class _SelectionModalState extends State<SelectionModal> {
           .singleWhere((itm) => itm['value'] == item, orElse: () => null);
       selectedOptions.add(Chip(
         label: new Container(
-                constraints: new BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80.0),
-                child: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
-              ),
+          constraints: new BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width - 80.0),
+          child: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
+        ),
         deleteButtonTooltipMessage: 'Tap to delete this item',
         deleteIcon: Icon(Icons.cancel),
         deleteIconColor: Colors.grey,
@@ -183,25 +196,18 @@ class _SelectionModalState extends State<SelectionModal> {
                       color: Colors.black87, fontWeight: FontWeight.bold),
                 ),
                 ConstrainedBox(
-                constraints: new BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height/8,
-                ),
-                child: 
-                Scrollbar(
-                                  child: SingleChildScrollView(child: 
-                  Wrap(            
-                    spacing: 8.0, // gap between adjacent chips
-                    runSpacing: 0.4, // gap between lines
-                    alignment: WrapAlignment.start,
-                    children: selectedOptions,
-                  )
-                  ),
-                )
-                
-                
-                ),
-               
-                
+                    constraints: new BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height / 8,
+                    ),
+                    child: Scrollbar(
+                      child: SingleChildScrollView(
+                          child: Wrap(
+                        spacing: 8.0, // gap between adjacent chips
+                        runSpacing: 0.4, // gap between lines
+                        alignment: WrapAlignment.start,
+                        children: selectedOptions,
+                      )),
+                    )),
               ],
             ),
           )
@@ -281,7 +287,9 @@ class _SelectionModalState extends State<SelectionModal> {
 
   void searchOperation(String searchText) {
     _searchresult.clear();
-    if (_isSearching != null && searchText != null && searchText.toString().trim() != '') {
+    if (_isSearching != null &&
+        searchText != null &&
+        searchText.toString().trim() != '') {
       for (int i = 0; i < _localDataSourceWithState.length; i++) {
         String data =
             '${_localDataSourceWithState[i]['value']} ${_localDataSourceWithState[i]['text']}';
@@ -289,9 +297,8 @@ class _SelectionModalState extends State<SelectionModal> {
           _searchresult.add(_localDataSourceWithState[i]);
         }
       }
-    }
-    else {
-     _searchresult = List.from(_localDataSourceWithState);
+    } else {
+      _searchresult = List.from(_localDataSourceWithState);
     }
   }
 }
