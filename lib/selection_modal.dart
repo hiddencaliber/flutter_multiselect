@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SelectionModal extends StatefulWidget {
   @override
@@ -11,8 +10,8 @@ class SelectionModal extends StatefulWidget {
   final String textField;
   final String valueField;
   final String title;
-  final int maxItems;
-
+  final int maxLength;
+  
   SelectionModal(
       {this.filterable,
       this.dataSource,
@@ -20,7 +19,7 @@ class SelectionModal extends StatefulWidget {
       this.values,
       this.textField,
       this.valueField,
-      this.maxItems})
+      this.maxLength})
       : super();
 }
 
@@ -124,27 +123,16 @@ class _SelectionModalState extends State<SelectionModal> {
                       ),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
-                      onPressed: () {
+                      onPressed: _localDataSourceWithState.where((item) => item['checked']).length > widget.maxLength ? null :  
+                      (){
                         var selectedValuesObjectList = _localDataSourceWithState
                             .where((item) => item['checked'])
                             .toList();
-
-                        if (widget.maxItems < selectedValuesObjectList.length) {
-                          Fluttertoast.showToast(
-                              msg: "Please select only "+widget.maxItems.toString()+" value(s).",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIos: 4,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 18.0);
-                        } else {
                           var selectedValues = [];
                           selectedValuesObjectList.forEach((item) {
                             selectedValues.add(item['value']);
                           });
                           Navigator.pop(context, selectedValues);
-                        }
                       },
                     ),
                   )

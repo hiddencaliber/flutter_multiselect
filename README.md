@@ -8,55 +8,59 @@ Flutter package for multi-select UI widget
 
 ## Getting Started
 
-add package in your pubspec.yaml
+- Add the package into `pubspec.yaml`
 
-    flutter_multiselect: 0.0.1
+```yaml
+dependencies:
+  flutter_multiselect: 0.0.1
+```
 
-and import in your project to start using the multiselect.
+- Import in your code
 
-By default, there is no UI contro for multi-select in iOS and Android
+```dart
+import 'package:flutter_multiselect/flutter_multiselect.dart';
+```
 
-This widget can be used for bridge that gap.
+## Why?
 
-Sample Usage -  
+By default, there is no UI control for multi-select in iOS and Android, and my widget can be used to bridge this gap.
 
-    new MultiSelect(
-                    autovalidate: false,
-                    titleText: title,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please select one or more option(s)';
-                      }
-                    },
-                    errorText: 'Please select one or more option(s)',
-                    dataSource: [
-                                    {
-                                        "display": "Australia",
-                                        "value": 1,
-                                    },
-                                    {
-                                        "display": "Canada",
-                                        "value": 1,
-                                    },
-                                    {
-                                        "display": "India",
-                                        "value": 3,
-                                    },
-                                    {
-                                        "display": "United States",
-                                        "value": 4,
-                                    }],
-                    textField: 'display',
-                    valueField: 'value',
-                    filterable: true,
-                    required: true,
-                    value: null,
-                    onSaved: (value) {
-                      print('The value is $value');
-                    });
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
-
-
+## Example
+```dart
+child: MultiSelect(
+  autovalidate: false,
+  titleText: title,
+  validator: (value) {
+    if (value == null) {
+      return 'Please select one or more option(s)';
+    }
+  },
+  errorText: 'Please select one or more option(s)',
+  dataSource: [
+    {
+      "display": "Australia",
+      "value": 1,
+    },
+    {
+      "display": "Canada",
+      "value": 2,
+    },
+    {
+      "display": "India",
+      "value": 3,
+    },
+    {
+      "display": "United States",
+      "value": 4,
+    }
+  ],
+  textField: 'display',
+  valueField: 'value',
+  filterable: true,
+  required: true,
+  value: null,
+  onSaved: (value) {
+    print('The value is $value');
+  }
+),
+```

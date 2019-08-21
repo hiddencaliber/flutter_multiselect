@@ -65,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     autovalidate: true,
                     initialValue: ['IN', 'US'],
                     titleText: 'Country of Residence',
+                    maxLength: 5, // optional
                     validator: (dynamic value) {
                       if (value == null) {
                         return 'Please select one or more option(s)';
