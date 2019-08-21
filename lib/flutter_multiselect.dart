@@ -19,7 +19,6 @@ class MultiSelect extends FormField<dynamic> {
   final Widget leading;
   final Widget trailing;
   final int maxLength;
-
   MultiSelect(
       {FormFieldSetter<dynamic> onSaved,
       FormFieldValidator<dynamic> validator,

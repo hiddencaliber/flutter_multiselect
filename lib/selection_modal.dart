@@ -11,7 +11,7 @@ class SelectionModal extends StatefulWidget {
   final String valueField;
   final String title;
   final int maxLength;
-
+  
   SelectionModal(
       {this.filterable,
       this.dataSource,
