@@ -43,7 +43,7 @@ child: MultiSelect(
     },
     {
       "display": "Canada",
-      "value": 1,
+      "value": 2,
     },
     {
       "display": "India",

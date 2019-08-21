@@ -18,6 +18,7 @@ class MultiSelect extends FormField<dynamic> {
   final Function close;
   final Widget leading;
   final Widget trailing;
+  final int maxLength;
 
   MultiSelect(
       {FormFieldSetter<dynamic> onSaved,
@@ -37,7 +38,8 @@ class MultiSelect extends FormField<dynamic> {
       this.change,
       this.open,
       this.close,
-      this.trailing})
+      this.trailing,
+      this.maxLength})
       : super(
             onSaved: onSaved,
             validator: validator,
@@ -70,12 +72,13 @@ class MultiSelect extends FormField<dynamic> {
                         state.context,
                         MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) => SelectionModal(
-			      title: titleText,
+			                        title: titleText,
                               filterable: filterable,
                               valueField: valueField,
                               textField: textField,
                               dataSource: dataSource,
-                              values: state.value ?? []),
+                              values: state.value ?? [],
+                              maxLength: maxLength ?? dataSource?.length),
                           fullscreenDialog: true,
                         ));
 
