@@ -122,16 +122,22 @@ class MultiSelect extends FormField<dynamic> {
                                       text: titleText,
                                       style: TextStyle(
                                           fontSize: 16.0, color: Theme.of(state.context).primaryColor),
-                                      children: required
-                                          ? [
+                                      children: 
+                                          [
                                               TextSpan(
-                                                text: ' *',
+                                                text: required ? ' *' : '',
                                                 style: TextStyle(
                                                     color: Colors.red,
                                                     fontSize: 16.0),
+                                              ),
+                                              TextSpan(
+                                                text: maxLength != null ? '(max $maxLength)' : '',
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 13.0),
                                               )
                                             ]
-                                          : []),
+                                          ),
                                 ),
                               ),
                               Column(
