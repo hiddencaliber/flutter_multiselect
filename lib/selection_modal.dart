@@ -11,7 +11,9 @@ class SelectionModal extends StatefulWidget {
   final String valueField;
   final String title;
   final int maxLength;
-  
+  final String cancelText;
+  final String saveText;
+
   SelectionModal(
       {this.filterable,
       this.dataSource,
@@ -19,7 +21,9 @@ class SelectionModal extends StatefulWidget {
       this.values,
       this.textField,
       this.valueField,
-      this.maxLength})
+      this.maxLength,
+      this.cancelText,
+      this.saveText})
       : super();
 }
 
@@ -102,7 +106,7 @@ class _SelectionModalState extends State<SelectionModal> {
                   ButtonTheme(
                     height: 50.0,
                     child: RaisedButton.icon(
-                      label: Text('Cancel'),
+                      label: Text(widget.cancelText),
                       icon: Icon(
                         Icons.clear,
                         size: 20.0,
@@ -116,24 +120,29 @@ class _SelectionModalState extends State<SelectionModal> {
                   ButtonTheme(
                     height: 50.0,
                     child: RaisedButton.icon(
-                      label: Text('Save'),
+                      label: Text(widget.saveText),
                       icon: Icon(
                         Icons.save,
                         size: 20.0,
                       ),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
-                      onPressed: _localDataSourceWithState.where((item) => item['checked']).length > widget.maxLength ? null :  
-                      (){
-                        var selectedValuesObjectList = _localDataSourceWithState
-                            .where((item) => item['checked'])
-                            .toList();
-                          var selectedValues = [];
-                          selectedValuesObjectList.forEach((item) {
-                            selectedValues.add(item['value']);
-                          });
-                          Navigator.pop(context, selectedValues);
-                      },
+                      onPressed: _localDataSourceWithState
+                                  .where((item) => item['checked'])
+                                  .length >
+                              widget.maxLength
+                          ? null
+                          : () {
+                              var selectedValuesObjectList =
+                                  _localDataSourceWithState
+                                      .where((item) => item['checked'])
+                                      .toList();
+                              var selectedValues = [];
+                              selectedValuesObjectList.forEach((item) {
+                                selectedValues.add(item['value']);
+                              });
+                              Navigator.pop(context, selectedValues);
+                            },
                     ),
                   )
                 ]),

@@ -19,6 +19,8 @@ class MultiSelect extends FormField<dynamic> {
   final Widget leading;
   final Widget trailing;
   final int maxLength;
+  final String cancelText;
+  final String saveText;
   MultiSelect(
       {FormFieldSetter<dynamic> onSaved,
       FormFieldValidator<dynamic> validator,
@@ -38,7 +40,9 @@ class MultiSelect extends FormField<dynamic> {
       this.open,
       this.close,
       this.trailing,
-      this.maxLength})
+      this.maxLength,
+      this.cancelText = 'Cancel',
+      this.saveText = 'Save'})
       : super(
             onSaved: onSaved,
             validator: validator,
@@ -71,7 +75,9 @@ class MultiSelect extends FormField<dynamic> {
                         state.context,
                         MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) => SelectionModal(
-			                        title: titleText,
+                              title: titleText,
+                              saveText: saveText,
+                              cancelText: cancelText,
                               filterable: filterable,
                               valueField: valueField,
                               textField: textField,
@@ -107,7 +113,9 @@ class MultiSelect extends FormField<dynamic> {
                       errorText: state.hasError ? state.errorText : null,
                       errorMaxLines: 50,
                     ),
-                    isEmpty: (state.value == null || state.value == '' || (state.value != null &&  state.value.length == 0)),
+                    isEmpty: (state.value == null ||
+                        state.value == '' ||
+                        (state.value != null && state.value.length == 0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -121,23 +129,25 @@ class MultiSelect extends FormField<dynamic> {
                                   text: TextSpan(
                                       text: titleText,
                                       style: TextStyle(
-                                          fontSize: 16.0, color: Theme.of(state.context).primaryColor),
-                                      children: 
-                                          [
-                                              TextSpan(
-                                                text: required ? ' *' : '',
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 16.0),
-                                              ),
-                                              TextSpan(
-                                                text: maxLength != null ? '(max $maxLength)' : '',
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 13.0),
-                                              )
-                                            ]
-                                          ),
+                                          fontSize: 16.0,
+                                          color: Theme.of(state.context)
+                                              .primaryColor),
+                                      children: [
+                                        TextSpan(
+                                          text: required ? ' *' : '',
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 16.0),
+                                        ),
+                                        TextSpan(
+                                          text: maxLength != null
+                                              ? '(max $maxLength)'
+                                              : '',
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 13.0),
+                                        )
+                                      ]),
                                 ),
                               ),
                               Column(
@@ -155,7 +165,10 @@ class MultiSelect extends FormField<dynamic> {
                             ],
                           ),
                         ),
-                        (state.value == null || state.value == '' || (state.value != null &&  state.value.length == 0))
+                        (state.value == null ||
+                                state.value == '' ||
+                                (state.value != null &&
+                                    state.value.length == 0))
                             ? new Container(
                                 margin:
                                     EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 6.0),
@@ -165,14 +178,13 @@ class MultiSelect extends FormField<dynamic> {
                                     color: Colors.grey.shade500,
                                   ),
                                 ),
-                              ):
-                              Wrap(
+                              )
+                            : Wrap(
                                 spacing: 8.0, // gap between adjacent chips
                                 runSpacing: 1.0, // gap between lines
                                 children:
                                     _buildSelectedOptions(state.value, state),
                               )
-                            
                       ],
                     ),
                   ));
