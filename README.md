@@ -3,11 +3,11 @@
 
 Flutter package for multi-select UI widget
 
-Android and iOS screenshot-
-![screenshot]([Imgur](https://i.imgur.com/YEalQ1R.png)
-
-
 [![pub package](https://img.shields.io/badge/flutter__multiselect-v0.2.0-green.svg)](https://pub.dartlang.org/packages/flutter_multiselect)
+
+
+Android and iOS screenshot-
+![screenshot](https://i.imgur.com/YEalQ1R.png)
 
 
 ## Getting Started
