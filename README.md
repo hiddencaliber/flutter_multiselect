@@ -6,8 +6,8 @@ Flutter package for multi-select UI widget
 Android demo- 
 ![screenshot](https://i.imgur.com/hPyxL3V.gif)
 
-iOS demo-
-![screenshot](https://i.imgur.com/iGbsfnE.gif)
+Android and iOS screenshot-
+![screenshot]([Imgur](https://i.imgur.com/YEalQ1R.png))
 
 
 [![pub package](https://img.shields.io/badge/flutter__multiselect-v0.2.0-green.svg)](https://pub.dartlang.org/packages/flutter_multiselect)
