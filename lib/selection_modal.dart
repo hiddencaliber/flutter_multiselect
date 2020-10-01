@@ -20,6 +20,10 @@ class SelectionModal extends StatefulWidget {
   final IconData saveButtonIcon;
   final Color saveButtonColor;
   final Color saveButtonTextColor;
+  final String clearButtonText;
+  final IconData clearButtonIcon;
+  final Color clearButtonColor;
+  final Color clearButtonTextColor;
   final String deleteButtonTooltipText;
   final IconData deleteIcon;
   final Color deleteIconColor;
@@ -51,6 +55,10 @@ class SelectionModal extends StatefulWidget {
       this.saveButtonIcon,
       this.saveButtonColor,
       this.saveButtonTextColor,
+      this.clearButtonText,
+      this.clearButtonIcon,
+      this.clearButtonColor,
+      this.clearButtonTextColor,
       this.deleteButtonTooltipText,
       this.deleteIcon,
       this.deleteIconColor,
@@ -64,8 +72,7 @@ class SelectionModal extends StatefulWidget {
       this.searchBoxHintText,
       this.searchBoxFillColor,
       this.searchBoxIcon,
-      this.searchBoxToolTipText
-      })
+      this.searchBoxToolTipText})
       : super();
 }
 
@@ -159,24 +166,45 @@ class _SelectionModalState extends State<SelectionModal> {
                   ButtonTheme(
                     height: 50.0,
                     child: RaisedButton.icon(
+                      label: Text(widget.clearButtonText ?? 'Clear All'),
+                      icon: Icon(
+                        widget.clearButtonIcon ?? Icons.clear,
+                        size: 20.0,
+                      ),
+                      color: widget.clearButtonColor ?? Colors.black,
+                      textColor: widget.clearButtonTextColor,
+                      onPressed: () {
+                        _clearSelection();
+                      },
+                    ),
+                  ),
+                  ButtonTheme(
+                    height: 50.0,
+                    child: RaisedButton.icon(
                       label: Text(widget.saveButtonText ?? 'Save'),
                       icon: Icon(
                         widget.saveButtonIcon ?? Icons.save,
                         size: 20.0,
                       ),
-                      color: widget.saveButtonColor ?? Theme.of(context).primaryColor,
+                      color: widget.saveButtonColor ??
+                          Theme.of(context).primaryColor,
                       textColor: widget.saveButtonTextColor ?? Colors.white,
-                      onPressed: _localDataSourceWithState.where((item) => item['checked']).length > widget.maxLength ? null :  
-                      (){
-                        var selectedValuesObjectList = _localDataSourceWithState
-                            .where((item) => item['checked'])
-                            .toList();
-                          var selectedValues = [];
-                          selectedValuesObjectList.forEach((item) {
-                            selectedValues.add(item['value']);
-                          });
-                          Navigator.pop(context, selectedValues);
-                      },
+                      onPressed: _localDataSourceWithState
+                                  .where((item) => item['checked'])
+                                  .length >
+                              widget.maxLength
+                          ? null
+                          : () {
+                              var selectedValuesObjectList =
+                                  _localDataSourceWithState
+                                      .where((item) => item['checked'])
+                                      .toList();
+                              var selectedValues = [];
+                              selectedValuesObjectList.forEach((item) {
+                                selectedValues.add(item['value']);
+                              });
+                              Navigator.pop(context, selectedValues);
+                            },
                     ),
                   )
                 ]),
@@ -204,7 +232,8 @@ class _SelectionModalState extends State<SelectionModal> {
               maxWidth: MediaQuery.of(context).size.width - 80.0),
           child: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
         ),
-        deleteButtonTooltipMessage: widget.deleteButtonTooltipText ?? 'Tap to delete this item',
+        deleteButtonTooltipMessage:
+            widget.deleteButtonTooltipText ?? 'Tap to delete this item',
         deleteIcon: widget.deleteIcon ?? Icon(Icons.cancel),
         deleteIconColor: widget.deleteIconColor ?? Colors.grey,
         onDeleted: () {
@@ -222,9 +251,11 @@ class _SelectionModalState extends State<SelectionModal> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 new Text(
-                  widget.selectedOptionsInfoText ?? 'Currently selected ${selectedOptions.length} items (tap to remove)', // use languageService here
+                  widget.selectedOptionsInfoText ??
+                      'Currently selected ${selectedOptions.length} items (tap to remove)', // use languageService here
                   style: TextStyle(
-                      color: widget.selectedOptionsInfoTextColor ?? Colors.black87,
+                      color:
+                          widget.selectedOptionsInfoTextColor ?? Colors.black87,
                       fontWeight: FontWeight.bold),
                 ),
                 ConstrainedBox(
@@ -250,13 +281,14 @@ class _SelectionModalState extends State<SelectionModal> {
     List<Widget> options = [];
     _searchresult.forEach((item) {
       options.add(ListTile(
+          selected: true,
           title: Text(item['text'] ?? ''),
           leading: Transform.scale(
             child: Icon(
                 item['checked']
                     ? widget.checkedIcon ?? Icons.check_box
                     : widget.uncheckedIcon ?? Icons.check_box_outline_blank,
-                color:  widget.checkBoxColor ?? Theme.of(context).primaryColor),
+                color: widget.checkBoxColor ?? Theme.of(context).primaryColor),
             scale: 1.5,
           ),
           onTap: () {
@@ -267,7 +299,7 @@ class _SelectionModalState extends State<SelectionModal> {
     });
     return ListView(children: options);
   }
-      
+
   Widget _buildSearchText() {
     return Container(
       color: widget.searchBoxColor ?? Theme.of(context).primaryColor,
@@ -293,7 +325,7 @@ class _SelectionModalState extends State<SelectionModal> {
                   suffix: SizedBox(
                       height: 25.0,
                       child: IconButton(
-                        icon: widget.searchBoxIcon ??Icon(Icons.clear),
+                        icon: widget.searchBoxIcon ?? Icon(Icons.clear),
                         onPressed: () {
                           _controller.clear();
                           searchOperation('');
@@ -315,6 +347,14 @@ class _SelectionModalState extends State<SelectionModal> {
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
+  }
+
+  void _clearSelection() {
+    _localDataSourceWithState = _localDataSourceWithState.map((item) {
+      item['checked'] = false;
+      return item;
+    }).toList();
+    setState(() {});
   }
 
   void searchOperation(String searchText) {

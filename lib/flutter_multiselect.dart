@@ -38,6 +38,10 @@ class MultiSelect extends FormField<dynamic> {
   final IconData saveButtonIcon;
   final Color saveButtonColor;
   final Color saveButtonTextColor;
+  final String clearButtonText;
+  final IconData clearButtonIcon;
+  final Color clearButtonColor;
+  final Color clearButtonTextColor;
   final String deleteButtonTooltipText;
   final IconData deleteIcon;
   final Color deleteIconColor;
@@ -90,6 +94,10 @@ class MultiSelect extends FormField<dynamic> {
       this.saveButtonIcon,
       this.saveButtonColor,
       this.saveButtonTextColor,
+      this.clearButtonText,
+      this.clearButtonIcon,
+      this.clearButtonColor,
+      this.clearButtonTextColor,
       this.deleteButtonTooltipText,
       this.deleteIcon,
       this.deleteIconColor,
@@ -103,8 +111,7 @@ class MultiSelect extends FormField<dynamic> {
       this.searchBoxHintText,
       this.searchBoxFillColor,
       this.searchBoxIcon,
-      this.searchBoxToolTipText
-      })
+      this.searchBoxToolTipText})
       : super(
             onSaved: onSaved,
             validator: validator,
@@ -137,7 +144,7 @@ class MultiSelect extends FormField<dynamic> {
                         state.context,
                         MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) => SelectionModal(
-			                        title: titleText,
+                              title: titleText,
                               filterable: filterable,
                               valueField: valueField,
                               textField: textField,
@@ -153,12 +160,17 @@ class MultiSelect extends FormField<dynamic> {
                               saveButtonIcon: saveButtonIcon,
                               saveButtonColor: saveButtonColor,
                               saveButtonTextColor: saveButtonTextColor,
+                              clearButtonText: clearButtonText,
+                              clearButtonIcon: clearButtonIcon,
+                              clearButtonColor: clearButtonColor,
+                              clearButtonTextColor: clearButtonTextColor,
                               deleteButtonTooltipText: deleteButtonTooltipText,
                               deleteIcon: deleteIcon,
                               deleteIconColor: deleteIconColor,
                               selectedOptionsBoxColor: selectedOptionsBoxColor,
                               selectedOptionsInfoText: selectedOptionsInfoText,
-                              selectedOptionsInfoTextColor: selectedOptionsInfoTextColor,
+                              selectedOptionsInfoTextColor:
+                                  selectedOptionsInfoTextColor,
                               checkedIcon: checkedIcon,
                               uncheckedIcon: uncheckedIcon,
                               checkBoxColor: checkBoxColor,
@@ -166,8 +178,7 @@ class MultiSelect extends FormField<dynamic> {
                               searchBoxHintText: searchBoxHintText,
                               searchBoxFillColor: searchBoxFillColor,
                               searchBoxIcon: searchBoxIcon,
-                              searchBoxToolTipText: searchBoxToolTipText
-                              ),
+                              searchBoxToolTipText: searchBoxToolTipText),
                           fullscreenDialog: true,
                         ));
 
@@ -197,7 +208,9 @@ class MultiSelect extends FormField<dynamic> {
                       errorText: state.hasError ? state.errorText : null,
                       errorMaxLines: 50,
                     ),
-                    isEmpty: (state.value == null || state.value == '' || (state.value != null &&  state.value.length == 0)),
+                    isEmpty: (state.value == null ||
+                        state.value == '' ||
+                        (state.value != null && state.value.length == 0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -211,23 +224,27 @@ class MultiSelect extends FormField<dynamic> {
                                   text: TextSpan(
                                       text: titleText,
                                       style: TextStyle(
-                                          fontSize: 16.0, color: titleTextColor ?? Theme.of(state.context).primaryColor),
-                                      children: 
-                                          [
-                                              TextSpan(
-                                                text: required ? ' *' : '',
-                                                style: TextStyle(
-                                                    color: maxLengthIndicatorColor,
-                                                    fontSize: 16.0),
-                                              ),
-                                              TextSpan(
-                                                text: maxLength != null ? (maxLengthText ?? '(max $maxLength)') : '',
-                                                style: TextStyle(
-                                                    color: maxLengthIndicatorColor,
-                                                    fontSize: 13.0),
-                                              )
-                                            ]
-                                          ),
+                                          fontSize: 16.0,
+                                          color: titleTextColor ??
+                                              Theme.of(state.context)
+                                                  .primaryColor),
+                                      children: [
+                                        TextSpan(
+                                          text: required ? ' *' : '',
+                                          style: TextStyle(
+                                              color: maxLengthIndicatorColor,
+                                              fontSize: 16.0),
+                                        ),
+                                        TextSpan(
+                                          text: maxLength != null
+                                              ? (maxLengthText ??
+                                                  '(max $maxLength)')
+                                              : '',
+                                          style: TextStyle(
+                                              color: maxLengthIndicatorColor,
+                                              fontSize: 13.0),
+                                        )
+                                      ]),
                                 ),
                               ),
                               Column(
@@ -237,7 +254,8 @@ class MultiSelect extends FormField<dynamic> {
                                 children: <Widget>[
                                   Icon(
                                     selectIcon,
-                                    color: selectIconColor ?? Theme.of(state.context).primaryColor,
+                                    color: selectIconColor ??
+                                        Theme.of(state.context).primaryColor,
                                     size: 30.0,
                                   )
                                 ],
@@ -245,7 +263,10 @@ class MultiSelect extends FormField<dynamic> {
                             ],
                           ),
                         ),
-                        (state.value == null || state.value == '' || (state.value != null &&  state.value.length == 0))
+                        (state.value == null ||
+                                state.value == '' ||
+                                (state.value != null &&
+                                    state.value.length == 0))
                             ? new Container(
                                 margin:
                                     EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 6.0),
@@ -255,14 +276,13 @@ class MultiSelect extends FormField<dynamic> {
                                     color: hintTextColor,
                                   ),
                                 ),
-                              ):
-                              Wrap(
+                              )
+                            : Wrap(
                                 spacing: 8.0, // gap between adjacent chips
                                 runSpacing: 1.0, // gap between lines
                                 children:
                                     _buildSelectedOptions(state.value, state),
                               )
-                            
                       ],
                     ),
                   ));
