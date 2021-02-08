@@ -68,10 +68,10 @@ child: MultiSelect(
 ```
 
 <p float="left">
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/1.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/2.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/3.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/4.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/1.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/2.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/3.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/4.jpeg"  width="25%" height="35%" />
 </p>
 
 ## Example with customization :two:
@@ -113,5 +113,5 @@ child: MultiSelect(
 and of course you can check the full list of the parameters to personalize your modal!
 
 <p float="left">
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example_customization_multiselect/screenshoots/1.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/customization/example_customization_multiselect/screenshoots/1.jpeg"  width="25%" height="35%" />
 </p>
