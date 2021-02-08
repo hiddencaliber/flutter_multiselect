@@ -30,8 +30,8 @@ void main() {
           ])
       });
 
-  Widget getBasicMultiSelectApp(
-      MultiSelect multiSelect, NavigatorObserver observer, GlobalKey<FormState> formKey) {
+  Widget getBasicMultiSelectApp(MultiSelect multiSelect,
+      NavigatorObserver observer, GlobalKey<FormState> formKey) {
     return MaterialApp(
       home: MyAppToTest(multiSelect, formKey),
       navigatorObservers: [observer],
@@ -46,7 +46,8 @@ void main() {
       textField: 'display',
       valueField: 'value',
     );
-    var app = getBasicMultiSelectApp(multiSelect, mockNavigatorObserver, new GlobalKey<FormState>());
+    var app = getBasicMultiSelectApp(
+        multiSelect, mockNavigatorObserver, new GlobalKey<FormState>());
     await tester.pumpWidget(app);
     Finder multiSelectFinder = find.byType(MultiSelect);
     expect(multiSelectFinder, findsOneWidget);
@@ -65,7 +66,8 @@ void main() {
       textField: 'display',
       valueField: 'value',
     );
-    var app = getBasicMultiSelectApp(multiSelect, mockNavigatorObserver, new GlobalKey<FormState>());
+    var app = getBasicMultiSelectApp(
+        multiSelect, mockNavigatorObserver, new GlobalKey<FormState>());
     await tester.pumpWidget(app);
     Finder multiSelectFinder = find.byType(MultiSelect);
     await tester.tap(multiSelectFinder);
@@ -84,7 +86,8 @@ void main() {
       textField: 'display',
       valueField: 'value',
     );
-    var app = getBasicMultiSelectApp(multiSelect, mockNavigatorObserver, new GlobalKey<FormState>());
+    var app = getBasicMultiSelectApp(
+        multiSelect, mockNavigatorObserver, new GlobalKey<FormState>());
     await tester.pumpWidget(app);
     Finder multiSelectFinder = find.byType(MultiSelect);
     await tester.tap(multiSelectFinder);
@@ -107,20 +110,23 @@ void main() {
       (WidgetTester tester) async {
     final MockNavigatorObserver mockNavigatorObserver = MockNavigatorObserver();
     final indcesToUseForInitalValues = [1, 3];
-    final initialMemebers  = List<Map<String, dynamic>>();
+    final initialMemebers = List<Map<String, dynamic>>();
     final formKey = new GlobalKey<FormState>();
     for (var item in indcesToUseForInitalValues) {
       initialMemebers.add(dataSource.elementAt(item));
     }
-    final List<dynamic> initialValues = initialMemebers.map((d) => d['value']).toList();
-    final List<dynamic> initialDisplayNames = initialMemebers.map((d) => d['display']).toList();
+    final List<dynamic> initialValues =
+        initialMemebers.map((d) => d['value']).toList();
+    final List<dynamic> initialDisplayNames =
+        initialMemebers.map((d) => d['display']).toList();
     final multiSelect = MultiSelect(
       dataSource: dataSource,
       textField: 'display',
       valueField: 'value',
       initialValue: initialValues,
     );
-    var app = getBasicMultiSelectApp(multiSelect, mockNavigatorObserver, formKey);
+    var app =
+        getBasicMultiSelectApp(multiSelect, mockNavigatorObserver, formKey);
     await tester.pumpWidget(app);
     Finder multiSelectFinder = find.byType(MultiSelect);
     await tester.tap(multiSelectFinder);
@@ -133,9 +139,12 @@ void main() {
     expect(optionsThatExistFinder, findsNWidgets(initialValues.length));
     Finder selectedOptionsTextFinder = find.descendant(
         of: optionsThatExistFinder, matching: find.byType(Text));
-    var selectedOptionsText =
-        selectedOptionsTextFinder.evaluate().map((e) => (e.widget as Text).data).toList();
-    expect(selectedOptionsText.every((t) => initialDisplayNames.contains(t)), isTrue);
+    var selectedOptionsText = selectedOptionsTextFinder
+        .evaluate()
+        .map((e) => (e.widget as Text).data)
+        .toList();
+    expect(selectedOptionsText.every((t) => initialDisplayNames.contains(t)),
+        isTrue);
   });
 }
 
@@ -144,7 +153,10 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 class MyAppToTest extends StatelessWidget {
   final MultiSelect _multiSelect;
   final GlobalKey<FormState> _formKey;
-  MyAppToTest(this._multiSelect, this._formKey,);
+  MyAppToTest(
+    this._multiSelect,
+    this._formKey,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
