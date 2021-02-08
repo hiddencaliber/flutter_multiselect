@@ -22,16 +22,16 @@ dependencies:
 import 'package:flutter_multiselect/flutter_multiselect.dart';
 ```
 
-## Why?
+## Why? :wrench:
 
 By default, there is no UI control for multi-select in iOS and Android, and my widget can be used to bridge this gap.
 
-## Example
+## Example without customization :one:
 
 ```dart
 child: MultiSelect(
   autovalidate: false,
-  titleText: title,
+  titleText: "Countries",
   validator: (value) {
     if (value == null) {
       return 'Please select one or more option(s)';
@@ -66,3 +66,49 @@ child: MultiSelect(
   }
 ),
 ```
+
+<p float="left">
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/1.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/2.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/3.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example/screenshoots/4.jpeg"  width="25%" height="35%" />
+</p>
+
+## Example with customization :two:
+
+```dart
+child: MultiSelect(
+    //--------customization selection modal-----------
+    buttonBarColor: Colors.red,
+    cancelButtonText: "Exit",
+    titleText: "Custom Title",
+    checkBoxColor: Colors.black,
+    selectedOptionsInfoText: "Selected custom text (tap to remove)",
+    selectedOptionsBoxColor: Colors.green,
+    autovalidate: true,
+    maxLength: 5, // optional
+    //--------end customization selection modal------------
+    validator: (dynamic value) {
+      if (value == null) {
+        return 'Please select one or more option(s)';
+      }
+      return null;
+    },
+    errorText: 'Please select one or more option(s)',
+    dataSource: [
+      {"name": "Afghanistan", "code": "AF"},
+      {"name": "Åland Islands", "code": "AX"},
+      {"name": "Albania", "code": "AL"},
+    ],
+    textField: 'name',
+    valueField: 'code',
+    filterable: true,
+    required: true,
+    onSaved: (value) {
+      print('The selected values are $value');
+    })
+
+```
+
+<p float="left">
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example_customization_multiselect/screenshoots/1.jpeg"  width="25%" height="35%" />

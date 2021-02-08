@@ -60,8 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: MultiSelect(
+                //--------customization selection modal-----------
+                buttonBarColor: Colors.red,
+                cancelButtonText: "Exit",
+                titleText: "Custom Title",
+                checkBoxColor: Colors.black,
+                selectedOptionsInfoText: "Selected custom text (tap to remove)",
+                selectedOptionsBoxColor: Colors.green,
                 autovalidate: true,
                 maxLength: 5, // optional
+                //--------end customization selection modal------------
                 validator: (dynamic value) {
                   if (value == null) {
                     return 'Please select one or more option(s)';
@@ -81,10 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 onSaved: (value) {
                   print('The selected values are $value');
                 },
-                //selectIcon: Icons.arrow_drop_down_circle,
-                //saveButtonColor: Theme.of(context).primaryColor,
-                //checkBoxColor: Theme.of(context).primaryColorDark,
-                //cancelButtonColor: Theme.of(context).primaryColorLight,
               ),
             ),
             SizedBox(
