@@ -68,10 +68,10 @@ child: MultiSelect(
 ```
 
 <p float="left">
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/1.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/2.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/3.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/ecustomization/xample/screenshoots/4.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/customization/example/screenshoots/1.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/customization/example/screenshoots/2.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/customization/example/screenshoots/3.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/customization/example/screenshoots/4.jpeg"  width="25%" height="35%" />
 </p>
 
 ## Example with customization :two:
