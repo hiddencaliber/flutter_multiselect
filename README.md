@@ -2,7 +2,7 @@
 
 Flutter package for multi-select UI widget
 
-[![pub package](https://img.shields.io/badge/flutter__multiselect-v0.2.0-green.svg)](https://pub.dartlang.org/packages/flutter_multiselect)
+[![pub package](https://img.shields.io/badge/flutter__multiselect-v%200.6.0-brightgreen)](https://pub.dartlang.org/packages/flutter_multiselect)
 
 Android and iOS screenshot-
 ![screenshot](https://i.imgur.com/YEalQ1R.png)
@@ -75,6 +75,8 @@ child: MultiSelect(
 </p>
 
 ## Example with customization :two:
+
+Check the colors and text to see the changes that it makes to the modal interface
 
 ```dart
 child: MultiSelect(

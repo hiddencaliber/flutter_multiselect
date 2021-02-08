@@ -1,4 +1,4 @@
-## 0.6
+## 0.6.0
 
 1. Added save method when you press save in the selection modal
 2. Added the same style to the bottom bar of cancel, clear all, save
