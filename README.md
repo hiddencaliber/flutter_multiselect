@@ -110,5 +110,8 @@ child: MultiSelect(
 
 ```
 
+and of course you can check the full list of the parameters to personalize your modal!
+
 <p float="left">
 <img src="https://github.com/WilliBobadilla/flutter_multiselect/tree/example_customization_multiselect/screenshoots/1.jpeg"  width="25%" height="35%" />
+</p>
