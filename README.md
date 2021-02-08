@@ -117,3 +117,35 @@ and of course you can check the full list of the parameters to personalize your 
 <p float="left">
 <img src="https://github.com/WilliBobadilla/flutter_multiselect/blob/customization/example_customization_multiselect/screenshoots/1.jpeg"  width="25%" height="35%" />
 </p>
+
+# Here, the complete list of parameters to modify the selection modal :clipboard:
+
+| Type           |          Parameter           |
+| -------------- | :--------------------------: |
+| final Color    |        buttonBarColor        |
+| final String   |       cancelButtonText       |
+| final IconData |       cancelButtonIcon       |
+| final Color    |      cancelButtonColor       |
+| final Color    |    cancelButtonTextColor     |
+| final String   |        saveButtonText        |
+| final IconData |        saveButtonIcon        |
+| final Color    |       saveButtonColor        |
+| final Color    |     saveButtonTextColor      |
+| final String   |       clearButtonText        |
+| final IconData |       clearButtonIcon        |
+| final Color    |       clearButtonColor       |
+| final Color    |     clearButtonTextColor     |
+| final String   |   deleteButtonTooltipText    |
+| final IconData |          deleteIcon          |
+| final Color    |       deleteIconColor        |
+| final Color    |   selectedOptionsBoxColor    |
+| final String   |   selectedOptionsInfoText    |
+| final Color    | selectedOptionsInfoTextColor |
+| final IconData |         checkedIcon          |
+| final IconData |        uncheckedIcon         |
+| final Color    |        checkBoxColor         |
+| final Color    |        searchBoxColor        |
+| final String   |      searchBoxHintText       |
+| final Color    |      searchBoxFillColor      |
+| final IconData |        searchBoxIcon         |
+| final String   |     searchBoxToolTipText     |
