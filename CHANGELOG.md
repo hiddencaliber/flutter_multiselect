@@ -1,7 +1,14 @@
+## 0.6.0
+
+1. Null safety
+2. Responsive modal dialog for desktop/tablet resolutions
+3. Clear all icon default icon changed to Icons.clear_all
+4. Misc minor visual fixes
+5. The keyword new removed from all the files
+
 ## 0.5.1
 
 - Code formatting
-
 
 ## 0.5.0
 
