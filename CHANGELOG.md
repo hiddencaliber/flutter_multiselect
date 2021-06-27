@@ -1,3 +1,11 @@
+## 1.0.0
+
+1. Null safety (Breaking Changes)
+2. Responsive modal dialog for desktop/tablet resolutions
+3. Clear all icon default icon changed to Icons.clear_all
+4. Misc minor visual fixes
+5. The keyword new removed from all the files
+
 ## 0.6.0
 
 1. Added save method when you press save in the selection modal

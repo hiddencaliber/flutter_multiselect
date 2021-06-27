@@ -10,42 +10,45 @@ class SelectionModal extends StatefulWidget {
   final String textField;
   final String valueField;
   final String title;
-  final int maxLength;
-  final Color buttonBarColor;
-  final String cancelButtonText;
-  final IconData cancelButtonIcon;
-  final Color cancelButtonColor;
-  final Color cancelButtonTextColor;
-  final String saveButtonText;
-  final IconData saveButtonIcon;
-  final Color saveButtonColor;
-  final Color saveButtonTextColor;
-  final String clearButtonText;
-  final IconData clearButtonIcon;
-  final Color clearButtonColor;
-  final Color clearButtonTextColor;
-  final String deleteButtonTooltipText;
-  final IconData deleteIcon;
-  final Color deleteIconColor;
-  final Color selectedOptionsBoxColor;
-  final String selectedOptionsInfoText;
-  final Color selectedOptionsInfoTextColor;
-  final IconData checkedIcon;
-  final IconData uncheckedIcon;
-  final Color checkBoxColor;
-  final Color searchBoxColor;
-  final String searchBoxHintText;
-  final Color searchBoxFillColor;
-  final IconData searchBoxIcon;
-  final String searchBoxToolTipText;
+  final int? maxLength;
+  final String? maxLengthText;
+  final Color? buttonBarColor;
+  final String? cancelButtonText;
+  final IconData? cancelButtonIcon;
+  final Color? cancelButtonColor;
+  final Color? cancelButtonTextColor;
+  final String? saveButtonText;
+  final IconData? saveButtonIcon;
+  final Color? saveButtonColor;
+  final Color? saveButtonTextColor;
+  final String? clearButtonText;
+  final IconData? clearButtonIcon;
+  final Color? clearButtonColor;
+  final Color? clearButtonTextColor;
+  final String? deleteButtonTooltipText;
+  final IconData? deleteIcon;
+  final Color? deleteIconColor;
+  final Color? selectedOptionsBoxColor;
+  final String? selectedOptionsInfoText;
+  final Color? selectedOptionsInfoTextColor;
+  final IconData? checkedIcon;
+  final IconData? uncheckedIcon;
+  final Color? checkBoxColor;
+  final Color? searchBoxColor;
+  final String? searchBoxHintText;
+  final Color? searchBoxFillColor;
+  final Color? searchBoxTextColor;
+  final IconData? searchBoxIcon;
+  final String? searchBoxToolTipText;
   SelectionModal(
-      {this.filterable,
-      this.dataSource,
+      {this.filterable = true,
+      this.dataSource = const [],
       this.title = 'Please select one or more option(s)',
-      this.values,
-      this.textField,
-      this.valueField,
+      this.values = const [],
+      this.textField = 'text',
+      this.valueField = 'value',
       this.maxLength,
+      this.maxLengthText,
       this.buttonBarColor,
       this.cancelButtonText,
       this.cancelButtonIcon,
@@ -71,6 +74,7 @@ class SelectionModal extends StatefulWidget {
       this.searchBoxColor,
       this.searchBoxHintText,
       this.searchBoxFillColor,
+      this.searchBoxTextColor,
       this.searchBoxIcon,
       this.searchBoxToolTipText})
       : super();
@@ -79,7 +83,7 @@ class SelectionModal extends StatefulWidget {
 class _SelectionModalState extends State<SelectionModal> {
   final globalKey = GlobalKey<ScaffoldState>();
   final TextEditingController _controller = TextEditingController();
-  bool _isSearching;
+  bool _isSearching = false;
 
   List _localDataSourceWithState = [];
   List _searchresult = [];
@@ -114,11 +118,11 @@ class _SelectionModalState extends State<SelectionModal> {
     _isSearching = false;
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
       leading: Container(),
       elevation: 0.0,
-      title: Text(widget.title, style: TextStyle(fontSize: 16.0)),
+      title: Center(child: Text(widget.title, style: TextStyle(fontSize: 16.0))),
       actions: <Widget>[
         IconButton(
           icon: Icon(
@@ -144,72 +148,66 @@ class _SelectionModalState extends State<SelectionModal> {
           _currentlySelectedOptions(),
           Container(
             color: widget.buttonBarColor ?? Colors.grey.shade600,
-            child: ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  ButtonTheme(
-                    height: 50.0,
-                    child: RaisedButton.icon(
-                      label: Text(widget.cancelButtonText ?? 'Cancel'),
-                      icon: Icon(
-                        widget.cancelButtonIcon ?? Icons.clear,
-                        size: 20.0,
-                      ),
-                      color: widget.cancelButtonColor ??
-                          Theme.of(context).primaryColor,
-                      textColor: widget.cancelButtonTextColor ?? Colors.white,
-                      onPressed: () {
-                        Navigator.pop(context, null);
-                      },
-                    ),
+            child:
+                ButtonBar(alignment: MainAxisAlignment.spaceBetween, mainAxisSize: MainAxisSize.max, children: <Widget>[
+              ButtonTheme(
+                height: 50.0,
+                child: ElevatedButton.icon(
+                  label: Text(widget.cancelButtonText ?? 'Cancel'),
+                  icon: Icon(
+                    widget.cancelButtonIcon ?? Icons.clear,
+                    size: 20.0,
                   ),
-                  ButtonTheme(
-                    height: 50.0,
-                    child: RaisedButton.icon(
-                      label: Text(widget.clearButtonText ?? 'Clear All'),
-                      icon: Icon(
-                        widget.clearButtonIcon ?? Icons.restore_from_trash,
-                        size: 20.0,
-                      ),
-                      color: widget.clearButtonColor ??
-                          Theme.of(context).primaryColor,
-                      textColor: widget.clearButtonTextColor ?? Colors.white,
-                      onPressed: () {
-                        _clearSelection();
-                      },
-                    ),
+                  style: ElevatedButton.styleFrom(
+                      primary: widget.cancelButtonColor ?? Colors.grey.shade100,
+                      onPrimary: widget.cancelButtonTextColor ?? Colors.black87),
+                  onPressed: () {
+                    Navigator.pop(context, null);
+                  },
+                ),
+              ),
+              ButtonTheme(
+                height: 50.0,
+                child: ElevatedButton.icon(
+                  label: Text(widget.clearButtonText ?? 'Clear All'),
+                  icon: Icon(
+                    widget.clearButtonIcon ?? Icons.clear_all,
+                    size: 20.0,
                   ),
-                  ButtonTheme(
-                    height: 50.0,
-                    child: RaisedButton.icon(
-                      label: Text(widget.saveButtonText ?? 'Save'),
-                      icon: Icon(
-                        widget.saveButtonIcon ?? Icons.save,
-                        size: 20.0,
-                      ),
-                      color: widget.saveButtonColor ??
-                          Theme.of(context).primaryColor,
-                      textColor: widget.saveButtonTextColor ?? Colors.white,
-                      onPressed: _localDataSourceWithState
-                                  .where((item) => item['checked'])
-                                  .length >
-                              widget.maxLength
-                          ? null
-                          : () {
+                  style: ElevatedButton.styleFrom(
+                      primary: widget.clearButtonColor ?? Colors.black,
+                      onPrimary: widget.clearButtonTextColor ?? Colors.white),
+                  onPressed: () {
+                    _clearSelection();
+                  },
+                ),
+              ),
+              ButtonTheme(
+                height: 50.0,
+                child: ElevatedButton.icon(
+                  label: Text(widget.saveButtonText ?? 'Save'),
+                  icon: Icon(
+                    widget.saveButtonIcon ?? Icons.save,
+                    size: 20.0,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: widget.saveButtonColor ?? Theme.of(context).colorScheme.primary,
+                      onPrimary: widget.saveButtonTextColor ?? Theme.of(context).colorScheme.onPrimary),
+                  onPressed:
+                      _localDataSourceWithState.where((item) => item['checked']).length <= (widget.maxLength ?? -1)
+                          ? () {
                               var selectedValuesObjectList =
-                                  _localDataSourceWithState
-                                      .where((item) => item['checked'])
-                                      .toList();
+                                  _localDataSourceWithState.where((item) => item['checked']).toList();
                               var selectedValues = [];
                               selectedValuesObjectList.forEach((item) {
                                 selectedValues.add(item['value']);
                               });
                               Navigator.pop(context, selectedValues);
-                            },
-                    ),
-                  )
-                ]),
+                            }
+                          : null,
+                ),
+              )
+            ]),
           )
         ],
       ),
@@ -219,24 +217,20 @@ class _SelectionModalState extends State<SelectionModal> {
   Widget _currentlySelectedOptions() {
     List<Widget> selectedOptions = [];
 
-    var selectedValuesObjectList =
-        _localDataSourceWithState.where((item) => item['checked']).toList();
+    var selectedValuesObjectList = _localDataSourceWithState.where((item) => item['checked']).toList();
     var selectedValues = [];
     selectedValuesObjectList.forEach((item) {
       selectedValues.add(item['value']);
     });
     selectedValues.forEach((item) {
-      var existingItem = _localDataSourceWithState
-          .singleWhere((itm) => itm['value'] == item, orElse: () => null);
+      var existingItem = _localDataSourceWithState.singleWhere((itm) => itm['value'] == item, orElse: () => null);
       selectedOptions.add(Chip(
         label: Container(
-          constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width - 80.0),
+          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80.0),
           child: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
         ),
-        deleteButtonTooltipMessage:
-            widget.deleteButtonTooltipText ?? 'Tap to delete this item',
-        deleteIcon: widget.deleteIcon ?? Icon(Icons.cancel),
+        deleteButtonTooltipMessage: widget.deleteButtonTooltipText ?? 'Tap to delete this item',
+        deleteIcon: Icon(widget.deleteIcon ?? Icons.cancel),
         deleteIconColor: widget.deleteIconColor ?? Colors.grey,
         onDeleted: () {
           existingItem['checked'] = false;
@@ -253,13 +247,15 @@ class _SelectionModalState extends State<SelectionModal> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  widget.selectedOptionsInfoText ??
-                      'Currently selected ${selectedOptions.length} items (tap to remove)', // use languageService here
+                  (widget.maxLength != null
+                          ? (widget.maxLengthText ?? 'Maximum ${widget.maxLength} items') + '\n'
+                          : '') +
+                      (widget.selectedOptionsInfoText ??
+                          'Currently selected ${selectedOptions.length} items (tap to remove)'), // use languageService here
                   style: TextStyle(
-                      color:
-                          widget.selectedOptionsInfoTextColor ?? Colors.black87,
-                      fontWeight: FontWeight.bold),
+                      color: widget.selectedOptionsInfoTextColor ?? Colors.black87, fontWeight: FontWeight.bold),
                 ),
+                Container(height: 8),
                 ConstrainedBox(
                     constraints: BoxConstraints(
                       maxHeight: MediaQuery.of(context).size.height / 8,
@@ -268,7 +264,7 @@ class _SelectionModalState extends State<SelectionModal> {
                       child: SingleChildScrollView(
                           child: Wrap(
                         spacing: 8.0, // gap between adjacent chips
-                        runSpacing: 0.4, // gap between lines
+                        runSpacing: 8.0, // gap between lines
                         alignment: WrapAlignment.start,
                         children: selectedOptions,
                       )),
@@ -303,38 +299,42 @@ class _SelectionModalState extends State<SelectionModal> {
   }
 
   Widget _buildSearchText() {
+    var textColor = widget.searchBoxTextColor ?? Colors.black87;
+    var textStyle = Theme.of(context).textTheme.subtitle1?.copyWith(color: textColor);
     return Container(
       color: widget.searchBoxColor ?? Theme.of(context).primaryColor,
-      padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: 10.0),
+      padding: EdgeInsets.fromLTRB(8, 0, 8, 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(
-            child: TextField(
-              controller: _controller,
-              keyboardAppearance: Brightness.light,
-              onChanged: searchOperation,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(12.0),
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(6.0),
-                    ),
-                  ),
-                  filled: true,
-                  hintText: widget.searchBoxHintText ?? "Search...",
-                  fillColor: widget.searchBoxFillColor ?? Colors.white,
-                  suffix: SizedBox(
-                      height: 25.0,
-                      child: IconButton(
-                        icon: widget.searchBoxIcon ?? Icon(Icons.clear),
-                        onPressed: () {
-                          _controller.clear();
-                          searchOperation('');
-                        },
-                        padding: EdgeInsets.all(0.0),
-                        tooltip: widget.searchBoxToolTipText ?? 'Clear',
-                      ))),
+          TextField(
+            controller: _controller,
+            keyboardAppearance: Brightness.light,
+            onChanged: searchOperation,
+            style: textStyle,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(left: 12, right: 12),
+              border: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(const Radius.circular(6.0)),
+              ),
+              filled: true,
+              hintText: widget.searchBoxHintText ?? "Search...",
+              hintStyle: textStyle,
+              fillColor: widget.searchBoxFillColor ?? Colors.white,
+              suffix: Container(
+                padding: EdgeInsets.only(top: 8),
+                height: 32,
+                child: IconButton(
+                  iconSize: 24,
+                  icon: Icon(widget.searchBoxIcon ?? Icons.clear, color: textColor),
+                  onPressed: () {
+                    _controller.clear();
+                    searchOperation('');
+                  },
+                  padding: EdgeInsets.all(0.0),
+                  tooltip: widget.searchBoxToolTipText ?? 'Clear',
+                ),
+              ),
             ),
           ),
         ],
@@ -361,12 +361,9 @@ class _SelectionModalState extends State<SelectionModal> {
 
   void searchOperation(String searchText) {
     _searchresult.clear();
-    if (_isSearching != null &&
-        searchText != null &&
-        searchText.toString().trim() != '') {
+    if (_isSearching && searchText.toString().trim() != '') {
       for (int i = 0; i < _localDataSourceWithState.length; i++) {
-        String data =
-            '${_localDataSourceWithState[i]['value']} ${_localDataSourceWithState[i]['text']}';
+        String data = '${_localDataSourceWithState[i]['value']} ${_localDataSourceWithState[i]['text']}';
         if (data.toLowerCase().contains(searchText.toLowerCase())) {
           _searchresult.add(_localDataSourceWithState[i]);
         }

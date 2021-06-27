@@ -4,7 +4,7 @@ version: 0.6.0
 homepage: https://github.com/hiddencaliber/flutter_multiselect
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -12,7 +12,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^4.0.0
+  mockito: ^5.0.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

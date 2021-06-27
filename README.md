@@ -62,16 +62,15 @@ child: MultiSelect(
   required: true,
   value: null,
   onSaved: (value) {
-    print('The value is $value');
+    print('The saved values are $value');
   }
 ),
 ```
 
 <p float="left">
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/blob/customization/example/screenshoots/1.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/blob/customization/example/screenshoots/2.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/blob/customization/example/screenshoots/3.jpeg"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/blob/customization/example/screenshoots/4.jpeg"  width="25%" height="35%" />
+<img src="/example/screenshoots/0.jpg"  width="25%" height="35%" />
+<img src="/example/screenshoots/1.jpg"  width="25%" height="35%" />
+<img src="/example/screenshoots/2.jpg"  width="50%" height="35%" />
 </p>
 
 ## Example with customization :two:
@@ -107,6 +106,9 @@ child: MultiSelect(
     filterable: true,
     required: true,
     onSaved: (value) {
+      print('The saved values are $value');
+    }),
+    change: (value) {
       print('The selected values are $value');
     })
 
@@ -114,38 +116,35 @@ child: MultiSelect(
 
 and of course you can check the full list of the parameters to personalize your modal!
 
-<p float="left">
-<img src="https://github.com/WilliBobadilla/flutter_multiselect/blob/customization/example_customization_multiselect/screenshoots/1.jpeg"  width="25%" height="35%" />
-</p>
-
 # Here, the complete list of parameters to modify the selection modal :clipboard:
 
-| Type           |          Parameter           |
-| -------------- | :--------------------------: |
-| final Color    |        buttonBarColor        |
-| final String   |       cancelButtonText       |
-| final IconData |       cancelButtonIcon       |
-| final Color    |      cancelButtonColor       |
-| final Color    |    cancelButtonTextColor     |
-| final String   |        saveButtonText        |
-| final IconData |        saveButtonIcon        |
-| final Color    |       saveButtonColor        |
-| final Color    |     saveButtonTextColor      |
-| final String   |       clearButtonText        |
-| final IconData |       clearButtonIcon        |
-| final Color    |       clearButtonColor       |
-| final Color    |     clearButtonTextColor     |
-| final String   |   deleteButtonTooltipText    |
-| final IconData |          deleteIcon          |
-| final Color    |       deleteIconColor        |
-| final Color    |   selectedOptionsBoxColor    |
-| final String   |   selectedOptionsInfoText    |
-| final Color    | selectedOptionsInfoTextColor |
-| final IconData |         checkedIcon          |
-| final IconData |        uncheckedIcon         |
-| final Color    |        checkBoxColor         |
-| final Color    |        searchBoxColor        |
-| final String   |      searchBoxHintText       |
-| final Color    |      searchBoxFillColor      |
-| final IconData |        searchBoxIcon         |
-| final String   |     searchBoxToolTipText     |
+| Type     |          Parameter           |
+| -------- | :--------------------------: |
+| Color    |        buttonBarColor        |
+| String   |       cancelButtonText       |
+| IconData |       cancelButtonIcon       |
+| Color    |      cancelButtonColor       |
+| Color    |    cancelButtonTextColor     |
+| String   |        saveButtonText        |
+| IconData |        saveButtonIcon        |
+| Color    |       saveButtonColor        |
+| Color    |     saveButtonTextColor      |
+| String   |       clearButtonText        |
+| IconData |       clearButtonIcon        |
+| Color    |       clearButtonColor       |
+| Color    |     clearButtonTextColor     |
+| String   |   deleteButtonTooltipText    |
+| IconData |          deleteIcon          |
+| Color    |       deleteIconColor        |
+| Color    |   selectedOptionsBoxColor    |
+| String   |   selectedOptionsInfoText    |
+| Color    | selectedOptionsInfoTextColor |
+| IconData |         checkedIcon          |
+| IconData |        uncheckedIcon         |
+| Color    |        checkBoxColor         |
+| Color    |        searchBoxColor        |
+| String   |      searchBoxHintText       |
+| Color    |      searchBoxFillColor      |
+| IconData |        searchBoxIcon         |
+| String   |     searchBoxToolTipText     |
+| Size     | responsiveDialogSize         |
