@@ -188,6 +188,7 @@ class MultiSelect extends FormField<dynamic> {
                         newValue = results;
                       }
                       state.didChange(newValue);
+                      onSaved(newValue);
                       if (change != null) {
                         change(newValue);
                       }

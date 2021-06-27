@@ -77,8 +77,8 @@ class SelectionModal extends StatefulWidget {
 }
 
 class _SelectionModalState extends State<SelectionModal> {
-  final globalKey = new GlobalKey<ScaffoldState>();
-  final TextEditingController _controller = new TextEditingController();
+  final globalKey = GlobalKey<ScaffoldState>();
+  final TextEditingController _controller = TextEditingController();
   bool _isSearching;
 
   List _localDataSourceWithState = [];
@@ -137,7 +137,7 @@ class _SelectionModalState extends State<SelectionModal> {
     return SafeArea(
       child: Column(
         children: <Widget>[
-          widget.filterable ? _buildSearchText() : new SizedBox(),
+          widget.filterable ? _buildSearchText() : SizedBox(),
           Expanded(
             child: _optionsList(),
           ),
@@ -156,8 +156,9 @@ class _SelectionModalState extends State<SelectionModal> {
                         widget.cancelButtonIcon ?? Icons.clear,
                         size: 20.0,
                       ),
-                      color: widget.cancelButtonColor ?? Colors.grey.shade100,
-                      textColor: widget.cancelButtonTextColor,
+                      color: widget.cancelButtonColor ??
+                          Theme.of(context).primaryColor,
+                      textColor: widget.cancelButtonTextColor ?? Colors.white,
                       onPressed: () {
                         Navigator.pop(context, null);
                       },
@@ -168,11 +169,12 @@ class _SelectionModalState extends State<SelectionModal> {
                     child: RaisedButton.icon(
                       label: Text(widget.clearButtonText ?? 'Clear All'),
                       icon: Icon(
-                        widget.clearButtonIcon ?? Icons.clear,
+                        widget.clearButtonIcon ?? Icons.restore_from_trash,
                         size: 20.0,
                       ),
-                      color: widget.clearButtonColor ?? Colors.black,
-                      textColor: widget.clearButtonTextColor,
+                      color: widget.clearButtonColor ??
+                          Theme.of(context).primaryColor,
+                      textColor: widget.clearButtonTextColor ?? Colors.white,
                       onPressed: () {
                         _clearSelection();
                       },
@@ -227,8 +229,8 @@ class _SelectionModalState extends State<SelectionModal> {
       var existingItem = _localDataSourceWithState
           .singleWhere((itm) => itm['value'] == item, orElse: () => null);
       selectedOptions.add(Chip(
-        label: new Container(
-          constraints: new BoxConstraints(
+        label: Container(
+          constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width - 80.0),
           child: Text(existingItem['text'], overflow: TextOverflow.ellipsis),
         ),
@@ -250,7 +252,7 @@ class _SelectionModalState extends State<SelectionModal> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                new Text(
+                Text(
                   widget.selectedOptionsInfoText ??
                       'Currently selected ${selectedOptions.length} items (tap to remove)', // use languageService here
                   style: TextStyle(
@@ -259,7 +261,7 @@ class _SelectionModalState extends State<SelectionModal> {
                       fontWeight: FontWeight.bold),
                 ),
                 ConstrainedBox(
-                    constraints: new BoxConstraints(
+                    constraints: BoxConstraints(
                       maxHeight: MediaQuery.of(context).size.height / 8,
                     ),
                     child: Scrollbar(
@@ -274,7 +276,7 @@ class _SelectionModalState extends State<SelectionModal> {
               ],
             ),
           )
-        : new Container();
+        : Container();
   }
 
   ListView _optionsList() {
@@ -295,7 +297,7 @@ class _SelectionModalState extends State<SelectionModal> {
             item['checked'] = !item['checked'];
             setState(() {});
           }));
-      options.add(new Divider(height: 1.0));
+      options.add(Divider(height: 1.0));
     });
     return ListView(children: options);
   }
@@ -312,9 +314,9 @@ class _SelectionModalState extends State<SelectionModal> {
               controller: _controller,
               keyboardAppearance: Brightness.light,
               onChanged: searchOperation,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(12.0),
-                  border: new OutlineInputBorder(
+                  border: OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(6.0),
                     ),
@@ -342,7 +344,7 @@ class _SelectionModalState extends State<SelectionModal> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       key: globalKey,
       appBar: _buildAppBar(context),
       body: _buildBody(context),

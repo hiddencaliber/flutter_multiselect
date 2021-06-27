@@ -1,7 +1,13 @@
+## 0.6.0
+
+1. Added save method when you press save in the selection modal
+2. Added the same style to the bottom bar of cancel, clear all, save
+3. Clear all icon default icon changed to Icons.restrore_from_trash
+4. The keyword new removed from all the files
+
 ## 0.5.1
 
 - Code formatting
-
 
 ## 0.5.0
 
