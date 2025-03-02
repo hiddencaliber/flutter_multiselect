@@ -1,6 +1,6 @@
 name: flutter_multiselect
 description: Flutter package for multi-select UI widget, that compatible to both iOS and Android and uses neutral design.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/cerberodev/flutter_multiselect
 
 environment:

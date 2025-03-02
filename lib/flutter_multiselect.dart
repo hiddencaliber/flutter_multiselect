@@ -9,7 +9,7 @@ class MultiSelect extends FormField<dynamic> {
   final String? hintText;
   final bool required;
   final String? errorText;
-  final dynamic? value;
+  final dynamic value;
   final bool filterable;
   final List dataSource;
   final String textField;
@@ -300,7 +300,7 @@ class MultiSelect extends FormField<dynamic> {
 
   static Widget _wrapAsDialog(bool isDialog, BuildContext context, {required Widget child, Size? dialogSize}) {
     if (!isDialog) return child;
-    final DialogTheme dialogTheme = DialogTheme.of(context);
+    final DialogTheme dialogTheme = DialogTheme.of(context) as DialogTheme;
     MediaQueryData data = MediaQuery.of(context);
     // viewInsets.bottom could be few hundreds when on-screen keyboard is opened, so it has to be ignored for dialog.
     data = data.copyWith(padding: EdgeInsets.all(0), viewPadding: EdgeInsets.all(0), viewInsets: EdgeInsets.all(0));

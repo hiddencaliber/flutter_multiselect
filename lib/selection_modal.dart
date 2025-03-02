@@ -149,9 +149,8 @@ class _SelectionModalState extends State<SelectionModal> {
           _currentlySelectedOptions(),
           Container(
             color: widget.buttonBarColor ?? Colors.grey.shade600,
-            child: ButtonBar(
+            child: OverflowBar(
                 alignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   ButtonTheme(
                     height: 50.0,
