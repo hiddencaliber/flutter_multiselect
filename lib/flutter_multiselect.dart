@@ -127,10 +127,13 @@ class MultiSelect extends FormField<dynamic> {
                 if (values != null) {
                   values.forEach((item) {
                     final notFound = Map<String, dynamic>();
-                    var existingItem = dataSource.singleWhere((itm) => itm[valueField] == item, orElse: () => notFound);
+                    var existingItem = dataSource.singleWhere(
+                        (itm) => itm[valueField] == item,
+                        orElse: () => notFound);
                     if (existingItem != notFound) {
                       selectedOptions.add(Chip(
-                        label: Text(existingItem[textField], overflow: TextOverflow.ellipsis),
+                        label: Text(existingItem[textField],
+                            overflow: TextOverflow.ellipsis),
                       ));
                     }
                   });
@@ -180,12 +183,16 @@ class MultiSelect extends FormField<dynamic> {
                                   clearButtonIcon: clearButtonIcon,
                                   clearButtonColor: clearButtonColor,
                                   clearButtonTextColor: clearButtonTextColor,
-                                  deleteButtonTooltipText: deleteButtonTooltipText,
+                                  deleteButtonTooltipText:
+                                      deleteButtonTooltipText,
                                   deleteIcon: deleteIcon,
                                   deleteIconColor: deleteIconColor,
-                                  selectedOptionsBoxColor: selectedOptionsBoxColor,
-                                  selectedOptionsInfoText: selectedOptionsInfoText,
-                                  selectedOptionsInfoTextColor: selectedOptionsInfoTextColor,
+                                  selectedOptionsBoxColor:
+                                      selectedOptionsBoxColor,
+                                  selectedOptionsInfoText:
+                                      selectedOptionsInfoText,
+                                  selectedOptionsInfoTextColor:
+                                      selectedOptionsInfoTextColor,
                                   checkedIcon: checkedIcon,
                                   uncheckedIcon: uncheckedIcon,
                                   checkBoxColor: checkBoxColor,
@@ -217,21 +224,31 @@ class MultiSelect extends FormField<dynamic> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: inputBoxFillColor,
-                      contentPadding: EdgeInsets.only(left: 10.0, top: 0.0, right: 10.0, bottom: kIsWeb ? 20 : 0),
+                      contentPadding: EdgeInsets.only(
+                          left: 10.0,
+                          top: 0.0,
+                          right: 10.0,
+                          bottom: kIsWeb ? 20 : 0),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(color: errorBorderColor ?? Colors.red)),
+                          borderSide: BorderSide(
+                              color: errorBorderColor ?? Colors.red)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                           borderSide: BorderSide(
                               color: enabledBorderColor ??
-                                  Theme.of(state.context).inputDecorationTheme.enabledBorder?.borderSide.color ??
+                                  Theme.of(state.context)
+                                      .inputDecorationTheme
+                                      .enabledBorder
+                                      ?.borderSide
+                                      .color ??
                                   Colors.grey)),
                       errorText: state.hasError ? state.errorText : null,
                       errorMaxLines: 50,
                     ),
-                    isEmpty:
-                        (state.value == null || state.value == '' || (state.value != null && state.value.length == 0)),
+                    isEmpty: (state.value == null ||
+                        state.value == '' ||
+                        (state.value != null && state.value.length == 0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -246,15 +263,24 @@ class MultiSelect extends FormField<dynamic> {
                                       text: titleText,
                                       style: TextStyle(
                                           fontSize: 16.0,
-                                          color: titleTextColor ?? Theme.of(state.context).primaryColor),
+                                          color: titleTextColor ??
+                                              Theme.of(state.context)
+                                                  .primaryColor),
                                       children: [
                                         TextSpan(
                                           text: required ? ' *' : '',
-                                          style: TextStyle(color: maxLengthIndicatorColor, fontSize: 16.0),
+                                          style: TextStyle(
+                                              color: maxLengthIndicatorColor,
+                                              fontSize: 16.0),
                                         ),
                                         TextSpan(
-                                          text: maxLength != null ? (maxLengthText ?? '(max $maxLength)') : '',
-                                          style: TextStyle(color: maxLengthIndicatorColor, fontSize: 13.0),
+                                          text: maxLength != null
+                                              ? (maxLengthText ??
+                                                  '(max $maxLength)')
+                                              : '',
+                                          style: TextStyle(
+                                              color: maxLengthIndicatorColor,
+                                              fontSize: 13.0),
                                         )
                                       ]),
                                 ),
@@ -266,7 +292,8 @@ class MultiSelect extends FormField<dynamic> {
                                 children: <Widget>[
                                   Icon(
                                     selectIcon,
-                                    color: selectIconColor ?? Theme.of(state.context).primaryColor,
+                                    color: selectIconColor ??
+                                        Theme.of(state.context).primaryColor,
                                     size: 30.0,
                                   )
                                 ],
@@ -274,9 +301,13 @@ class MultiSelect extends FormField<dynamic> {
                             ],
                           ),
                         ),
-                        (state.value == null || state.value == '' || (state.value != null && state.value.length == 0))
+                        (state.value == null ||
+                                state.value == '' ||
+                                (state.value != null &&
+                                    state.value.length == 0))
                             ? new Container(
-                                margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 6.0),
+                                margin:
+                                    EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 6.0),
                                 child: Text(
                                   hintText ?? '',
                                   style: TextStyle(
@@ -287,7 +318,8 @@ class MultiSelect extends FormField<dynamic> {
                             : Wrap(
                                 spacing: 8.0, // gap between adjacent chips
                                 runSpacing: 1.0, // gap between lines
-                                children: _buildSelectedOptions(state.value, state),
+                                children:
+                                    _buildSelectedOptions(state.value, state),
                               )
                       ],
                     ),
@@ -295,15 +327,20 @@ class MultiSelect extends FormField<dynamic> {
             });
 
   static const RoundedRectangleBorder _defaultDialogShape =
-      RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0)));
+      RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(4.0)));
   static const double _defaultElevation = 24.0;
 
-  static Widget _wrapAsDialog(bool isDialog, BuildContext context, {required Widget child, Size? dialogSize}) {
+  static Widget _wrapAsDialog(bool isDialog, BuildContext context,
+      {required Widget child, Size? dialogSize}) {
     if (!isDialog) return child;
     final DialogTheme dialogTheme = DialogTheme.of(context) as DialogTheme;
     MediaQueryData data = MediaQuery.of(context);
     // viewInsets.bottom could be few hundreds when on-screen keyboard is opened, so it has to be ignored for dialog.
-    data = data.copyWith(padding: EdgeInsets.all(0), viewPadding: EdgeInsets.all(0), viewInsets: EdgeInsets.all(0));
+    data = data.copyWith(
+        padding: EdgeInsets.all(0),
+        viewPadding: EdgeInsets.all(0),
+        viewInsets: EdgeInsets.all(0));
     return Container(
       color: Colors.black26,
       child: Center(
@@ -311,14 +348,16 @@ class MultiSelect extends FormField<dynamic> {
           width: dialogSize?.width ?? 500.0,
           height: dialogSize?.height ?? 700.0,
           decoration: ShapeDecoration(
-            shadows: kElevationToShadow[dialogTheme.elevation ?? _defaultElevation],
+            shadows:
+                kElevationToShadow[dialogTheme.elevation ?? _defaultElevation],
             shape: RoundedRectangleBorder(),
           ),
           child: MediaQuery(
             data: data,
             child: Container(
                 clipBehavior: Clip.hardEdge,
-                decoration: ShapeDecoration(shape: dialogTheme.shape ?? _defaultDialogShape),
+                decoration: ShapeDecoration(
+                    shape: dialogTheme.shape ?? _defaultDialogShape),
                 child: child),
           ),
         ),
@@ -327,7 +366,8 @@ class MultiSelect extends FormField<dynamic> {
   }
 }
 
-class _CustomMaterialPageRoute<T> extends PageRoute<T> with MaterialRouteTransitionMixin<T> {
+class _CustomMaterialPageRoute<T> extends PageRoute<T>
+    with MaterialRouteTransitionMixin<T> {
   final bool isOpaque;
 
   _CustomMaterialPageRoute(

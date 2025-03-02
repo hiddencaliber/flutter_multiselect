@@ -254,7 +254,7 @@ class _SelectionModalState extends State<SelectionModal> {
         },
       ));
     });
-    return selectedOptions.length > 0
+    return selectedOptions.isNotEmpty
         ? Container(
             padding: EdgeInsets.all(10.0),
             color: widget.selectedOptionsBoxColor ?? Colors.grey.shade400,

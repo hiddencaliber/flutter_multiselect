@@ -1,3 +1,7 @@
+## 1.0.2
+
+1. Added BSD license info and misc. improvements 
+
 ## 1.0.1
 
 1. Bug fixes and misc. other improvements
